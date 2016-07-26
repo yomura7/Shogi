@@ -13,8 +13,8 @@ import koma.Koma;
 public class Board extends JFrame {
 
 	static public final int SIZE = 9;
-	static private boolean clickFlag = false;
 	static private Masu[] masu = new Masu[SIZE * SIZE];
+
 
 	// ==== Main ====
 	public static void main(String[] args) {
@@ -68,6 +68,14 @@ public class Board extends JFrame {
 		masu[point2index(new Point(x, y))].setKoma(koma);
 	}
 
+	static public void moveKoma(Masu m_before, Masu m_after) {
+		// 移動先に配置
+		putKoma(m_after.getPoint().x, m_after.getPoint().y, m_before.getKoma());
+		System.out.println("Koma = " + m_before.getKoma());
+		// 移動元を削除
+		m_before.removeKoma();
+	}
+
 	/* 盤座標と通し番号の変換 */
 	// 盤座標→通し番号
 	static public int point2index(Point p) {
@@ -80,24 +88,5 @@ public class Board extends JFrame {
 		return new Point(x, y);
 	}
 
-	/* フラグ管理 */
-	static public boolean getClickFlag(){
-		return clickFlag;
-	}
-	static public void invertFlag(){
-		clickFlag = !clickFlag;
-	}
-
-	/* 配置判定 */
-	// 駒を置けるかどうか判定
-	// TODO 自分の駒か相手の駒か判定
-	static public boolean isPlaceable(Point p){
-		if(p.x >= 1 && p.x <= 9){
-			if(p.y >= 1 && p.y <= 9){
-				return true;
-			}
-		}
-		return false;
-	}
 
 }

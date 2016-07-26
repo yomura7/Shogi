@@ -29,7 +29,7 @@ public class Komadai {
 		panel.setLayout(layout);
 
 		for (int i = 0; i < 18; i++) {
-			komadai[i].setBackground(Color.ORANGE);
+			komadai[i].setBackground(Color.LIGHT_GRAY);
 			komadai[i].setOpaque(true);
 			komadai[i].setText("　");
 			panel.add(komadai[i]);

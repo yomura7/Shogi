@@ -5,39 +5,37 @@ import java.util.ArrayList;
 
 public abstract class Koma {
 
-	protected String komaName;
 	protected String imgName;
 	protected boolean face;
 	protected boolean direction;
 	protected ArrayList<Point> list = new ArrayList<Point>();
 
 	// コンストラクタ
-	public Koma(boolean face, boolean direction) {
+	public Koma(boolean face, boolean direction, String[] name) {
 		super();
 		this.face = face;
 		this.direction = direction;
 
-		// TODO ここでサブクラスから名前をもってくる
+		if (face == true && direction == true) {
+			this.imgName = name[0];
+		} else if (face == true && direction == false) {
+			this.imgName = name[1];
+		} else if (face == false && direction == true) {
+			this.imgName = name[2];
+		} else if (face == false && direction == false) {
+			this.imgName = name[3];
+		}
 
 	}
 
 	// 配置可能マップの取得
 	// TODO 今は全部の駒が歩の動作をしている
 	// TODO 駒ごとにオーバーライドするか、このメソッドを抽象メソッドにする
-	public ArrayList<Point> getPlaceablePoint(Point p) {
-
-		// 駒の動きを追加
-		if (direction == true) {
-			list.add(new Point(p.x, p.y - 1));
-		} else {
-			list.add(new Point(p.x, p.y + 1));
-		}
+	public ArrayList<Point> getMoveList(Point p) {
+		ArrayList<Point> list = new ArrayList<Point>();
 		return list;
 	}
 
-	public String getKomaName() {
-		return komaName;
-	}
 	public String getImgName() {
 		return imgName;
 	}

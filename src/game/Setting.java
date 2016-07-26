@@ -21,8 +21,6 @@ import koma.Kyosha;
 // 初期設定クラス
 public class Setting {
 
-	private static final int SIZE = Board.SIZE;
-
 	// メニューバーのセット
 	static public void setManuBar(Board b) {
 		JMenuBar mbar = new JMenuBar();
@@ -43,12 +41,12 @@ public class Setting {
 	static public JPanel setMainField() {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
-		GridLayout layout = new GridLayout(SIZE, SIZE);
+		GridLayout layout = new GridLayout(Board.SIZE, Board.SIZE);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		panel.setLayout(layout);
 
-		for (int i = 0; i < 81; i++) {
+		for (int i = 0; i < Board.SIZE*Board.SIZE; i++) {
 			Board.getMasu(i).setBackground(Color.DARK_GRAY);
 			Board.getMasu(i).addMouseListener(new KomaListener());
 			panel.add(Board.getMasu(i));
@@ -61,7 +59,7 @@ public class Setting {
 		// 歩の配置
 		Koma fu1 = new Fu(true, true);
 		Koma fu2 = new Fu(true, false);
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < Board.SIZE; i++) {
 			Board.putKoma(i + 1, 7, fu1);
 			Board.putKoma(i + 1, 3, fu2);
 		}
