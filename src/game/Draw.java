@@ -15,6 +15,8 @@ public class Draw {
 			Masu masu = Board.getMasu(i);
 			if (masu.getPlaceable() == true) {
 				Board.getMasu(i).setColor(Color.ORANGE);
+			}else{
+				Board.getMasu(i).setColor(Color.DARK_GRAY);
 			}
 		}
 		// 指定駒の着色

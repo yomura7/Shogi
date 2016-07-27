@@ -29,8 +29,6 @@ public abstract class Koma {
 	}
 
 	// 配置可能マップの取得
-	// TODO 今は全部の駒が歩の動作をしている
-	// TODO 駒ごとにオーバーライドするか、このメソッドを抽象メソッドにする
 	public ArrayList<Point> getMoveList(Point p) {
 		ArrayList<Point> list = new ArrayList<Point>();
 		return list;
@@ -38,6 +36,10 @@ public abstract class Koma {
 
 	public String getImgName() {
 		return imgName;
+	}
+
+	public boolean isDirection() {
+		return direction;
 	}
 
 }

@@ -31,6 +31,7 @@ public class Masu extends JButton{
 	public void removeKoma() {
 		this.setIcon(null);
 		this.koma = null;
+		this.komaState = false;
 	}
 
 	public boolean isExistKoma(){

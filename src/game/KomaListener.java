@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import koma.Koma;
+
 // マウスイベント時の処理を定義するクラス
 public class KomaListener implements MouseListener {
 
@@ -18,12 +20,13 @@ public class KomaListener implements MouseListener {
 
 		// クリックした座標のマスを取得
 		Masu m = (Masu) e.getSource();
+		Koma k = m.getKoma();
 
 		// クリック1度目・・・配置可能位置を着色
-		// クリック2度目・・・着色をリセット
 		if (GameMaster.getClickFlag() == false) {
-
-			if (m.isExistKoma() == true) {
+			// 駒が存在 && 選択した駒とターンが一致
+			if (m.isExistKoma() == true &&
+					GameMaster.getTurn() == k.isDirection()) {
 				// クリックした駒の配置可能マップインスタンスを生成
 				ArrayList<Point>pList = m.getKoma().getMoveList(m.getPoint());
 				GameMaster.createMap(pList);
@@ -32,9 +35,8 @@ public class KomaListener implements MouseListener {
 				GameMaster.invertFlag();
 				Draw.coloringMap();
 			}
-
+		// クリック2度目・・・着色をリセット
 		} else {
-
 			Board.moveKoma(GameMaster.getPrevMasu(), m);
 			GameMaster.deleteMap();
 			GameMaster.invertFlag();

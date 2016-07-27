@@ -15,11 +15,12 @@ public class Board extends JFrame {
 	static public final int SIZE = 9;
 	static private Masu[] masu = new Masu[SIZE * SIZE];
 
-
 	// ==== Main ====
 	public static void main(String[] args) {
 		Board frame = new Board("Shogi");
 		frame.setVisible(true);
+		System.out.println("＝＝対局開始＝＝");
+		System.out.println("△先手番です");
 	}
 
 	// コンストラクタ (Boardは一度だけ生成）※Singletonパターン？
@@ -53,10 +54,13 @@ public class Board extends JFrame {
 	// ==== Method ====
 
 	/* Getter */
-	static public Masu getMasu(int index){
+	static public Masu getMasu(int index) {
 		return masu[index];
 	}
-	static public Masu getMasu(Point p){
+
+	static public Masu getMasu(Point p) {
+		if (p.x < 1 || p.x > 9) return null;
+		if (p.y < 1 || p.y > 9) return null;
 		return masu[point2index(p)];
 	}
 
@@ -69,24 +73,33 @@ public class Board extends JFrame {
 	}
 
 	static public void moveKoma(Masu m_before, Masu m_after) {
-		// 移動先に配置
-		putKoma(m_after.getPoint().x, m_after.getPoint().y, m_before.getKoma());
-		System.out.println("Koma = " + m_before.getKoma());
-		// 移動元を削除
-		m_before.removeKoma();
+
+		if (m_after.getPlaceable() == true) {
+
+			// 移動先に配置
+			putKoma(m_after.getPoint().x, m_after.getPoint().y,
+					m_before.getKoma());
+			System.out.println("Koma = " + m_before.getKoma());
+			// 移動元を削除
+			m_before.removeKoma();
+
+			GameMaster.changeTurn();
+			GameMaster.message();
+
+		}
 	}
 
 	/* 盤座標と通し番号の変換 */
 	// 盤座標→通し番号
 	static public int point2index(Point p) {
-		return ( (9 - p.x) + ((p.y - 1) * 9));
+		return ((9 - p.x) + ((p.y - 1) * 9));
 	}
+
 	// 通し番号→盤座標
 	static public Point index2point(int index) {
 		int y = (index / 9) + 1;
 		int x = 9 - (index % 9);
 		return new Point(x, y);
 	}
-
 
 }
