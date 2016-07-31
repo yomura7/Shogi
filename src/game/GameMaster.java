@@ -11,18 +11,18 @@ public class GameMaster {
 
 	// 指定した駒の移動可能位置をtrueに変更
 	static public void createMap(ArrayList<Point> pList){
-
 		for (int i=0; i<pList.size(); i++){
+			// 盤外の駒を除外
 			if (pList.get(i).x < 1 || pList.get(i).x > 9) continue;
 			if (pList.get(i).y < 1 || pList.get(i).y > 9) continue;
 
 			Masu masu = Board.getMasu(pList.get(i));
-			if (masu.isExistKoma() == true) continue;
 
 			// trueをセット
 			masu.setPlaceable();
 		}
 	}
+
 
 	static public void deleteMap(){
 		for (int i=0; i<Board.SIZE*Board.SIZE; i++){

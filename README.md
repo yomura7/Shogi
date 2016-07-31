@@ -1,31 +1,31 @@
-# Java«Šû
+# Javaå°†æ£‹
 
-Java‚Ì•×‹­‚ª‚Ä‚ç«Šûƒ\ƒtƒg‚ðì‚Á‚Ä‚¢‚Ü‚·B
+Javaã®å‹‰å¼·ãŒã¦ã‚‰å°†æ£‹ã‚½ãƒ•ãƒˆã‚’ä½œã£ã¦ã„ã¾ã™ã€‚
 
 *****
 
-## ŠJ”­ŠÂ‹«
-* OSFWindows
-* IDEFEclipse 4.4 (ƒRƒ“ƒpƒCƒ‰€‹’ƒŒƒxƒ‹1.8) 
+## é–‹ç™ºç’°å¢ƒ
+* OSï¼šWindows
+* IDEï¼šEclipse 4.4 (ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©æº–æ‹ ãƒ¬ãƒ™ãƒ«1.8)
 
-## Žg‚¢•û
+## ä½¿ã„æ–¹
 
-* ŽÀs‚·‚éê‡
-1. Java‚ÌŽÀsŠÂ‹«‚ðƒCƒ“ƒXƒg[ƒ‹iƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚ÅjavaƒRƒ}ƒ“ƒh‚ª’Ê‚ê‚ÎOKj
-2. Shogi.jar‚ðƒ_ƒuƒ‹ƒNƒŠƒbƒN‚à‚µ‚­‚ÍˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ÅŽÀs
-@@c:\java > java -jar Shogi.jar 
+* å®Ÿè¡Œã™ã‚‹å ´åˆ
+1. Javaã®å®Ÿè¡Œç’°å¢ƒã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ï¼ˆã‚³ãƒžãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã§javaã‚³ãƒžãƒ³ãƒ‰ãŒé€šã‚Œã°OKï¼‰
+2. Shogi.jarã‚’ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯ã‚‚ã—ãã¯ä»¥ä¸‹ã®ã‚³ãƒžãƒ³ãƒ‰ã§å®Ÿè¡Œ
+' c:\java > java -jar Shogi.jar '
 
-* Eclipse‚ÖƒCƒ“ƒ|[ƒg‚·‚éê‡
-1. Eclipse‚Ìƒ[ƒNƒXƒy[ƒX‚Éƒ_ƒEƒ“ƒ[ƒh‚µ‚½ƒtƒHƒ‹ƒ_‚ð”z’u
- [—á] C:\workspace\Shogi
-1. [ƒtƒ@ƒCƒ‹]¨[V‹K]¨[JavaƒvƒƒWƒFƒNƒg]‚ð‘I‘ð
-1. ƒvƒƒWƒFƒNƒg–¼‚ðuShogiv‚Æ‚µ‚Ä[ŽŸ‚Ö]‚ð‘I‘ð
-1. uShogiv‚Éƒ_ƒEƒ“ƒ[ƒh‚µ‚½ƒtƒ@ƒCƒ‹‚ª’Ç‰Á‚³‚ê‚Ä‚¢‚é‚±‚Æ‚ðŠm”F‚µ‚Ä[Š®—¹]
-1. ŽÀsiCtrl+F11j
+* Eclipseã¸ã‚¤ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹å ´åˆ
+1. Eclipseã®ãƒ¯ãƒ¼ã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸãƒ•ã‚©ãƒ«ãƒ€ã‚’é…ç½®
+' [ä¾‹] C:\workspace\Shogi '
+1. [ãƒ•ã‚¡ã‚¤ãƒ«]â†’[æ–°è¦]â†’[Javaãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ]ã‚’é¸æŠž
+1. ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆåã‚’ã€ŒShogiã€ã¨ã—ã¦[æ¬¡ã¸]ã‚’é¸æŠž
+1. ã€ŒShogiã€ã«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒè¿½åŠ ã•ã‚Œã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèªã—ã¦[å®Œäº†]
+1. å®Ÿè¡Œï¼ˆCtrl+F11ï¼‰
 
-## ŽÀ‘•‚µ‚Ä‚¢‚é‹@”\
-* ‹î‚ðˆÚ“®‚·‚é
-  * ‹î‚ðƒNƒŠƒbƒN‚·‚é‚ÆˆÚ“®ˆÊ’u•\Ž¦
-  * ‚à‚¤ˆê“x•Ê‚Ìƒ}ƒX‚ðƒNƒŠƒbƒN‚·‚é‚Æ‹î‚ðˆÚ“®
-* ‘ŠŽè‘¤‚Ì3’i–ÚˆÈ~‚Ü‚Å‹î‚ði‚ß‚é‚Æ¬‚é
-* ˆêŽè‘Å‚Â‚ÆŽè”Ô‚ð•ÏX‚·‚é
+## å®Ÿè£…ã—ã¦ã„ã‚‹æ©Ÿèƒ½
+* é§’ã‚’ç§»å‹•ã™ã‚‹
+  * é§’ã‚’ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã¨ç§»å‹•ä½ç½®è¡¨ç¤º
+  * ã‚‚ã†ä¸€åº¦åˆ¥ã®ãƒžã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã¨é§’ã‚’ç§»å‹•
+* ç›¸æ‰‹å´ã®3æ®µç›®ä»¥é™ã¾ã§é§’ã‚’é€²ã‚ã‚‹ã¨æˆã‚‹
+* ä¸€æ‰‹æ‰“ã¤ã¨æ‰‹ç•ªã‚’å¤‰æ›´ã™ã‚‹

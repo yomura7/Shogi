@@ -1,3 +1,10 @@
+# 2016.7.31
+・香車の動き制限追加(Kyosha)
+・相手の駒のみを取れるように(Board - moveKoma)
+・mouseClickedからmousePressedに変更
+・飛車が消えるバグあり
+
+
 【分析】
 ▼ユースケース分析
 石を置く

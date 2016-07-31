@@ -14,10 +14,10 @@ public class KomaListener implements MouseListener {
 		super();
 	}
 
-	// ボタンをクリックしたときの動作
+	// 実装なし
 	@Override
-	public void mouseClicked(MouseEvent e) {
-
+	public void mousePressed(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
 		// クリックした座標のマスを取得
 		Masu m = (Masu) e.getSource();
 		Koma k = m.getKoma();
@@ -29,6 +29,7 @@ public class KomaListener implements MouseListener {
 					GameMaster.getTurn() == k.isDirection()) {
 				// クリックした駒の配置可能マップインスタンスを生成
 				ArrayList<Point>pList = m.getKoma().getMoveList(m.getPoint());
+
 				GameMaster.createMap(pList);
 				pList.clear();
 				GameMaster.setPrevMasu(m);
@@ -42,12 +43,11 @@ public class KomaListener implements MouseListener {
 			GameMaster.invertFlag();
 			Draw.coloringMap();
 		}
-
 	}
 
 	// 実装なし
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
 	}
 

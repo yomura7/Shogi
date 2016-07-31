@@ -40,18 +40,23 @@ public class Board extends JFrame {
 		getContentPane().add(komadai1.getPanel(), BorderLayout.NORTH);
 		getContentPane().add(komadai2.getPanel(), BorderLayout.SOUTH);
 
+		Setting set = new Setting();
+
 		// メニューバーの配置
-		Setting.setManuBar(this);
+		set.setManuBar(this);
 
 		// ボタンの配置
+		// TODO staticを使わない
 		JPanel panel = Setting.setMainField();
 		getContentPane().add(panel, BorderLayout.CENTER);
 
 		// 駒の初期配置
+		// TODO staticを使わない
 		Setting.initPlace();
 	}
 
 	// ==== Method ====
+	// TODO staticを使わない
 
 	/* Getter */
 	static public Masu getMasu(int index) {
@@ -76,6 +81,11 @@ public class Board extends JFrame {
 
 		if (m_after.getPlaceable() == true) {
 
+			// 移動先に駒がある場合
+			if (m_after.isExistKoma() == true) {
+					System.out.println("駒を取りました");
+			}
+
 			// 移動先に配置
 			putKoma(m_after.getPoint().x, m_after.getPoint().y,
 					m_before.getKoma());
@@ -88,6 +98,11 @@ public class Board extends JFrame {
 
 		}
 	}
+
+	static public void moveKomadai(Koma koma){
+
+	}
+
 
 	/* 盤座標と通し番号の変換 */
 	// 盤座標→通し番号

@@ -21,8 +21,12 @@ import koma.Kyosha;
 // 初期設定クラス
 public class Setting {
 
+	public Setting(){
+
+	}
+
 	// メニューバーのセット
-	static public void setManuBar(Board b) {
+	public void setManuBar(Board b) {
 		JMenuBar mbar = new JMenuBar();
 		JMenu menu1 = new JMenu("File");
 		JMenu menu2 = new JMenu("Edit");
