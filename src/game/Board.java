@@ -40,10 +40,8 @@ public class Board extends JFrame {
 		getContentPane().add(komadai1.getPanel(), BorderLayout.NORTH);
 		getContentPane().add(komadai2.getPanel(), BorderLayout.SOUTH);
 
-		Setting set = new Setting();
-
 		// メニューバーの配置
-		set.setManuBar(this);
+		Setting.setManuBar(this);
 
 		// ボタンの配置
 		// TODO staticを使わない
@@ -93,6 +91,7 @@ public class Board extends JFrame {
 			// 移動元を削除
 			m_before.removeKoma();
 
+			GameMaster.checkNaru(m_after);
 			GameMaster.changeTurn();
 			GameMaster.message();
 

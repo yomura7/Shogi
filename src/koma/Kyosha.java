@@ -13,8 +13,8 @@ public class Kyosha extends Koma {
 			"./koma_img/sgs37.png", "./koma_img/sgs17.png",
 			"./koma_img/sgs47.png" };
 
-	public Kyosha(boolean face, boolean direction) {
-		super(face, direction, name);
+	public Kyosha(boolean direction) {
+		super(direction, name);
 	}
 
 	@Override

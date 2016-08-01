@@ -9,12 +9,10 @@ public class Kin extends Koma {
 	private static String[] name ={
 		"./koma_img/sgs04.png",
 		"./koma_img/sgs34.png",
-		"./koma_img/sgs04.png",
-		"./koma_img/sgs34.png"
 	};
 
-	public Kin(boolean face, boolean direction) {
-		super(face, direction, name);
+	public Kin(boolean direction) {
+		super(direction, name);
 	}
 
 	@Override

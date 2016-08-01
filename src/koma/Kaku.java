@@ -13,8 +13,8 @@ public class Kaku extends Koma {
 		"./koma_img/sgs43.png"
 	};
 
-	public Kaku(boolean face, boolean direction) {
-		super(face, direction, name);
+	public Kaku(boolean direction) {
+		super(direction, name);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class Kaku extends Koma {
 		ArrayList<Point> list = new ArrayList<Point>();
 
 		// 右上・右下
-		for(int i=0; i<=9; i++){
+		for(int i=1; i<=9; i++){
 			if (p.x - i >= 1 && p.y - i >= 1){		// 右上
 				list.add(new Point( p.x - i, p.y - i ));
 			}

@@ -5,27 +5,37 @@ import java.util.ArrayList;
 
 public abstract class Koma {
 
+	protected String[] nameList;
 	protected String imgName;
 	protected boolean face;
 	protected boolean direction;
 	protected ArrayList<Point> list = new ArrayList<Point>();
 
 	// コンストラクタ
-	public Koma(boolean face, boolean direction, String[] name) {
+	public Koma(boolean direction, String[] nameList) {
 		super();
-		this.face = face;
+		this.face = true;
 		this.direction = direction;
+		this.nameList = nameList;
 
-		if (face == true && direction == true) {
-			this.imgName = name[0];
-		} else if (face == true && direction == false) {
-			this.imgName = name[1];
-		} else if (face == false && direction == true) {
-			this.imgName = name[2];
-		} else if (face == false && direction == false) {
-			this.imgName = name[3];
+		if (direction == true) {
+			this.imgName = nameList[0];
+		} else {
+			this.imgName = nameList[1];
 		}
+	}
 
+	// 成る
+	public void naru() {
+		final int KOMA_STATE_SIZE = 4;
+		if (nameList.length == KOMA_STATE_SIZE) {
+			this.face = !(this.face);
+			if (direction == true) {
+				this.imgName = nameList[2];
+			} else {
+				this.imgName = nameList[3];
+			}
+		}
 	}
 
 	// 配置可能マップの取得
@@ -40,6 +50,10 @@ public abstract class Koma {
 
 	public boolean isDirection() {
 		return direction;
+	}
+
+	public boolean isFace() {
+		return face;
 	}
 
 }

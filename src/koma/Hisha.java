@@ -15,8 +15,8 @@ public class Hisha extends Koma {
 		"./koma_img/sgs42.png"
 	};
 
-	public Hisha(boolean face, boolean direction) {
-		super(face, direction, name);
+	public Hisha(boolean direction) {
+		super(direction, name);
 	}
 
 	@Override
