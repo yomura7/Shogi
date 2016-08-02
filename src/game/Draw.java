@@ -8,6 +8,15 @@ public class Draw {
 		Board.getMasu(m.getIndex()).setColor(Color.CYAN);
 	}
 
+	/* 駒台の描画 */
+	public void drawKomadai(){
+
+	}
+
+	public void updateKomadai(){
+
+	}
+
 	/* 盤の着色 */
 	static public void coloringMap() {
 		// 移動可能位置の着色

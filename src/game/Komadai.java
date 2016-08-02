@@ -6,11 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import koma.Koma;
+
 // 駒台（取った駒を置くための台）
 public class Komadai {
 
-	private static final int SIZE = Board.SIZE;
-	public static JButton[] komadai = new JButton[2*SIZE];
+	public static JButton[] komadai = new JButton[2*Board.SIZE];
 	private JPanel panel = new JPanel();
 
 	public Komadai() {
@@ -23,7 +24,7 @@ public class Komadai {
 
 		// パネルの配置
 		panel.setBackground(Color.BLACK);
-		GridLayout layout = new GridLayout(2, SIZE);
+		GridLayout layout = new GridLayout(2, Board.SIZE);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		panel.setLayout(layout);
@@ -38,5 +39,9 @@ public class Komadai {
 
 	public JPanel getPanel(){
 		return panel;
+	}
+
+	public void setKoma(Koma koma){
+
 	}
 }
