@@ -1,7 +1,14 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,10 +17,11 @@ import javax.swing.JPanel;
 import koma.Koma;
 
 // 将棋盤、駒台の状態を表示・変更するためのクラス
-public class Board extends JFrame {
+public class Board extends JFrame implements Observer, MouseListener {
 
 	static public final int SIZE = 9;
 	static private Masu[] masu = new Masu[SIZE * SIZE];
+	State state = new State();
 
 	// ==== Main ====
 	public static void main(String[] args) {
@@ -24,10 +32,12 @@ public class Board extends JFrame {
 	}
 
 	// コンストラクタ (Boardは一度だけ生成）※Singletonパターン？
-	private Board(String title) {
+	public Board(String title) {
 		this.setTitle(title);
 		this.setBounds(50, 50, 500, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		state.addObserver(this);
 
 		// マスの初期化
 		for (int i = 0; i < masu.length; i++) {
@@ -45,7 +55,7 @@ public class Board extends JFrame {
 
 		// ボタンの配置
 		// TODO staticを使わない
-		JPanel panel = Setting.setMainField();
+		JPanel panel = setMainField();
 		getContentPane().add(panel, BorderLayout.CENTER);
 
 		// 駒の初期配置
@@ -55,6 +65,11 @@ public class Board extends JFrame {
 
 	// ==== Method ====
 	// TODO staticを使わない
+
+	public void update(Observable o, Object arg){
+		repaint();
+		System.out.println("受信");
+	}
 
 	/* Getter */
 	static public Masu getMasu(int index) {
@@ -91,6 +106,7 @@ public class Board extends JFrame {
 			// 移動元を削除
 			m_before.removeKoma();
 
+
 			GameMaster.checkNaru(m_after);
 			GameMaster.changeTurn();
 			GameMaster.message();
@@ -98,10 +114,22 @@ public class Board extends JFrame {
 		}
 	}
 
-	static public void moveKomadai(Koma koma){
+	// 将棋盤のセット
+	private JPanel setMainField() {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		GridLayout layout = new GridLayout(Board.SIZE, Board.SIZE);
+		layout.setHgap(5);
+		layout.setVgap(5);
+		panel.setLayout(layout);
 
+		for (int i = 0; i < Board.SIZE*Board.SIZE; i++) {
+			getMasu(i).setBackground(Color.DARK_GRAY);
+			getMasu(i).addMouseListener(this);
+			panel.add(Board.getMasu(i));
+		}
+		return panel;
 	}
-
 
 	/* 盤座標と通し番号の変換 */
 	// 盤座標→通し番号
@@ -114,6 +142,63 @@ public class Board extends JFrame {
 		int y = (index / 9) + 1;
 		int x = 9 - (index % 9);
 		return new Point(x, y);
+	}
+
+	// 実装なし
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		// クリックした座標のマスを取得
+		Masu m = (Masu) e.getSource();
+		Koma k = m.getKoma();
+
+		// クリック1度目・・・配置可能位置を着色
+		if (GameMaster.getClickFlag() == false) {
+			// 駒が存在 && 選択した駒とターンが一致
+			if (m.isExistKoma() == true &&
+					GameMaster.getTurn() == k.isDirection()) {
+				// クリックした駒の配置可能マップインスタンスを生成
+				ArrayList<Point>pList = m.getKoma().getMoveList(m.getPoint());
+
+				GameMaster.createMap(pList);
+				pList.clear();
+				GameMaster.setPrevMasu(m);
+				GameMaster.invertFlag();
+				Draw.coloringMap();
+			}
+		// クリック2度目・・・着色をリセット
+		} else {
+			Board.moveKoma(GameMaster.getPrevMasu(), m);
+			GameMaster.deleteMap();
+			GameMaster.invertFlag();
+			Draw.coloringMap();
+
+			// 被観測者を更新→updateが発生
+			state.change();
+
+		}
+
+	}
+
+	// 実装なし
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
 	}
 
 }

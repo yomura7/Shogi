@@ -2,8 +2,9 @@ package game;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class GameMaster {
+public class GameMaster extends Observable{
 
 	static private boolean clickFlag = false;
 	static private boolean turn = true;
@@ -80,7 +81,7 @@ public class GameMaster {
 				Board.putKoma(m.getPoint().x, m.getPoint().y, m.getKoma());
 			}
 		}
-
 	}
+
 
 }

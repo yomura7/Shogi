@@ -1,3 +1,10 @@
+#2016.8.11
+・MVCモデルに変更したい
+・Observerパターンを使えばできそう（staticを大幅に減らせそう）
+　・Model（盤面の状態）→被観測者
+　・View（描画）→観測者
+　・Controller（Listener）→イベント待ち受け
+
 # 2016.7.31
 ・香車の動き制限追加(Kyosha)
 ・相手の駒のみを取れるように(Board - moveKoma)

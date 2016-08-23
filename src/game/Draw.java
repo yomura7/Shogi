@@ -2,7 +2,9 @@ package game;
 
 import java.awt.Color;
 
-public class Draw {
+public class Draw{
+
+
 
 	static public void coloring(Masu m) {
 		Board.getMasu(m.getIndex()).setColor(Color.CYAN);
@@ -16,6 +18,7 @@ public class Draw {
 	public void updateKomadai(){
 
 	}
+
 
 	/* 盤の着色 */
 	static public void coloringMap() {
@@ -31,4 +34,7 @@ public class Draw {
 		// 指定駒の着色
 //		Board.getMasu(m.getIndex()).setColor(Color.CYAN);
 	}
+
+
+
 }

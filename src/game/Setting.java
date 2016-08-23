@@ -1,12 +1,8 @@
 package game;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 import koma.Fu;
 import koma.Gin;
@@ -37,22 +33,6 @@ public class Setting {
 		b.setJMenuBar(mbar);
 	}
 
-	// 将棋盤のセット
-	static public JPanel setMainField() {
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		GridLayout layout = new GridLayout(Board.SIZE, Board.SIZE);
-		layout.setHgap(5);
-		layout.setVgap(5);
-		panel.setLayout(layout);
-
-		for (int i = 0; i < Board.SIZE*Board.SIZE; i++) {
-			Board.getMasu(i).setBackground(Color.DARK_GRAY);
-			Board.getMasu(i).addMouseListener(new KomaListener());
-			panel.add(Board.getMasu(i));
-		}
-		return panel;
-	}
 
 	// 平手の初期配置にセット
 	static public void initPlace() {

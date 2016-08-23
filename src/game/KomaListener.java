@@ -1,19 +1,15 @@
 package game;
 
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.Observable;
 
-import koma.Koma;
 
 // マウスイベント時の処理を定義するクラス
-public class KomaListener implements MouseListener {
+public class KomaListener  extends Observable /* implements MouseListener*/ {
 
 	public KomaListener() {
 		super();
 	}
-
+/*
 	// 実装なし
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -43,6 +39,7 @@ public class KomaListener implements MouseListener {
 			GameMaster.invertFlag();
 			Draw.coloringMap();
 		}
+
 	}
 
 	// 実装なし
@@ -65,4 +62,5 @@ public class KomaListener implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
 	}
+*/
 }
