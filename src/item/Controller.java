@@ -1,14 +1,7 @@
 package item;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import koma.Koma;
 
@@ -17,114 +10,94 @@ import koma.Koma;
 
 public class Controller  implements Observer {
 
-	private Board shogiBoard = new Board();
-	private View UI = new View();
+	private Board shogiBoard;
+	private View UI;
+	private GameMaster GM;
+	private KomaListener[] listener = new KomaListener[View.SIZE * View.SIZE];
 
-	// ==== Main ====
-	public static void main(String[] args) {
+	// コンストラクタ
+	public Controller(){
 
-		Board shogiBoard = new Board();
+		// 将棋盤の生成・駒の初期配置
+		this.shogiBoard = new Board();
+
+		Setting setting = new Setting(Setting.HIRATE);
+		setting.initPlace(shogiBoard);
+
+		// Listenerの設定
+		for (int i = 0; i < View.SIZE*View.SIZE; i++) {
+			listener[i].addObserver(this);
+			shogiBoard.getMasu(i).addMouseListener(listener[i]);
+		}
 
 		// UIの生成
+		this.UI = new View();
+		UI.setMainField(shogiBoard);
 		UI.setVisible(true);
 
-		// 駒の初期配置
-		Setting setting = new Setting(Setting.HIRATE);
-		setting.initPlace(shogiBoard);	// TODO 未完成
+		GM = new GameMaster();
 
 	}
 
-	// 将棋盤のセット
-	private JPanel setMainField() {
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		GridLayout layout = new GridLayout(View.SIZE, View.SIZE);
-		layout.setHgap(5);
-		layout.setVgap(5);
-		panel.setLayout(layout);
-
-		for (int i = 0; i < View.SIZE*View.SIZE; i++) {
-			KomaListener KL = new KomaListener();
-			Masu m = shogiBoard.getState().getMasu(i);
-
-			m.setBackground(Color.DARK_GRAY);
-			m.addMouseListener(KL);
-			KL.addObserver(this);
-			panel.add(m);
-		}
-		return panel;
-	}
 
 	// クリック時のマスを受け取っていろいろ処理
 	public void update(Observable o, Object arg){
 		// 引数を受け取る
-		Masu m = new Masu();
-		m = (Masu)arg;
-
-		// 色々な処理
+		Masu masu = new Masu();
+		masu = (Masu)arg;
+		Koma koma = masu.getKoma();
 
 		// クリック1度目・・・配置可能位置を着色
-		if (GameMaster.getClickFlag() == false) {
+		if (GM.getClickFlag() == false) {
 			// 駒が存在 && 選択した駒とターンが一致
-			if (m.isExistKoma() == true &&
-					GameMaster.getTurn() == k.isDirection()) {
-				// クリックした駒の配置可能マップインスタンスを生成
-				ArrayList<Point>pList = m.getKoma().getMoveList(m.getPoint());
+			if (masu.isExistKoma() == true &&
+				GM.getTurn() == koma.isDirection()) {
 
-				GameMaster.createMap(pList);
-				pList.clear();
-				GameMaster.setPrevMasu(m);
-				GameMaster.invertFlag();
-				Draw.coloringMap();
+				shogiBoard.setSrcMasu(masu);
+
+				// クリックした駒の配置可能マップ生成
+				GM.createMap(shogiBoard);
+				GM.invertFlag();
+
+				// 描画
+				UI.coloringMap(shogiBoard);
 			}
 		// クリック2度目・・・着色をリセット
 		} else {
-			View.moveKoma(GameMaster.getPrevMasu(), m);
-			GameMaster.deleteMap();
-			GameMaster.invertFlag();
-			Draw.coloringMap();
-		}
+			shogiBoard.setDstMasu(masu);
 
-		// 駒の更新
-		for (int i = 0; i < View.SIZE*View.SIZE; i++) {
+			moveKoma(shogiBoard);
 
-			state.getMasu(i).setBackground(Color.DARK_GRAY);
-		}
+			GM.deleteMap(shogiBoard);
+			GM.invertFlag();
 
-		// 駒台の更新
-		for (int i = 0; i < 2*View.SIZE; i++) {
-			state.getKomadai1().setBackground(Color.DARK_GRAY);
+			// 描画
+			UI.coloringMap(shogiBoard);
 		}
 	}
 
-	/* 駒の配置 */
-	// [例] ９一歩(左上)・・・putKoma(9, 1, Fu)
-	public void putKoma(int x, int y, Koma koma) {
-		ImageIcon icon = new ImageIcon(koma.getImgName());
-		State state = View.state;
-		state.getMasu(new Point(x, y)).setIcon(icon);
-		state.getMasu(new Point(x, y)).setKoma(koma);
-	}
+	public void moveKoma(Board board) {
 
-	public void moveKoma(Masu m_before, Masu m_after) {
+		Masu src = board.getSrcMasu();
+		Masu dst = board.getDstMasu();
 
-		if (m_after.getPlaceable() == true) {
+
+		if (dst.getPlaceable() == true) {
 
 			// 移動先に駒がある場合
-			if (m_after.isExistKoma() == true) {
+			if (dst.isExistKoma() == true) {
 					System.out.println("駒を取りました");
 			}
 
 			// 移動先に配置
-			putKoma(m_after.getPoint().x, m_after.getPoint().y,
-					m_before.getKoma());
-			System.out.println("Koma = " + m_before.getKoma());
+			board.putKoma(dst.getPoint().x, dst.getPoint().y, src.getKoma());
+			System.out.println("Koma = " + src.getKoma());
 			// 移動元を削除
-			m_before.removeKoma();
+			src.removeKoma();
 
-			GameMaster.checkNaru(m_after);
-			GameMaster.changeTurn();
-			GameMaster.message();
+			GM.checkNaru(shogiBoard);
+			GM.changeTurn();
+			GM.message();
 
 		}
 	}

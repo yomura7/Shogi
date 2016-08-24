@@ -1,9 +1,10 @@
 package koma;
 
-import game.Board;
+import item.View;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Hisha extends Koma {
@@ -20,10 +21,10 @@ public class Hisha extends Koma {
 	}
 
 	@Override
-	public ArrayList<Point> getMoveList(Point p){
-		ArrayList<Point> list = new ArrayList<Point>();
+	public List<Point> getMoveList(Point p){
+		List<Point> list = new ArrayList<Point>();
 
-		for(int i=1; i<=Board.SIZE; i++){
+		for(int i=1; i<=View.SIZE; i++){
 			list.add(new Point(p.x, i));
 			list.add(new Point(i, p.y));
 		}

@@ -1,8 +1,8 @@
 package item;
 
 import java.awt.BorderLayout;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /* MVCモデル - View */
 // 将棋盤、駒台の状態を表示・変更するためのクラス
 
-public class View extends JFrame implements Observer {
+public class View extends JFrame {
 
 	static public final int SIZE = 9;
 
@@ -28,18 +28,22 @@ public class View extends JFrame implements Observer {
 	}
 
 	// ==== Method ====
-	public void update(Observable o, Object arg){
-		// 引数を受け取る
-		shogiBoard = (Board)arg;
 
-		// 描画処理いろいろ
-
-
-
-
-		repaint();
-		System.out.println("盤面を更新しました");
+	/* 盤の着色 */
+	public void coloringMap(Board nowBoard) {
+		// 移動可能位置の着色
+		for (int i = 0; i < (View.SIZE * View.SIZE); i++) {
+			Masu masu = nowBoard.getMasu(i);
+			if (masu.getPlaceable() == true) {
+				masu.setColor(Color.ORANGE);
+			}else{
+				masu.setColor(Color.DARK_GRAY);
+			}
+		}
+		// 指定駒の着色
+		nowBoard.getSrcMasu().setColor(Color.CYAN);
 	}
+
 
 	private void initView() {
 		// ウィンドウの設定
@@ -67,13 +71,32 @@ public class View extends JFrame implements Observer {
 		menu[0].add(menuitem[2]);
 		// Boardにセット
 		this.setJMenuBar(mbar);
+	}
 
-		JPanel panel = setMainField();
+	// 将棋盤のセット
+	public void setMainField(Board shogiBoard) {
+
+		// メインパネル
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+
+		// レイアウト設定
+		GridLayout layout = new GridLayout(View.SIZE, View.SIZE);
+		layout.setHgap(5);
+		layout.setVgap(5);
+		panel.setLayout(layout);
+
+		// マスのセット
+		for (int i = 0; i < View.SIZE*View.SIZE; i++) {
+			Masu m = shogiBoard.getMasu(i);
+			panel.add(m);
+		}
 		getContentPane().add(panel, BorderLayout.CENTER);
-
 		getContentPane().add(shogiBoard.getKomadai1().getPanel(), BorderLayout.NORTH);
 		getContentPane().add(shogiBoard.getKomadai2().getPanel(), BorderLayout.SOUTH);
 
 	}
+
+
 
 }

@@ -1,7 +1,10 @@
 package koma;
 
+import item.Board;
+
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gin extends Koma {
 
@@ -13,9 +16,9 @@ public class Gin extends Koma {
 		super(direction, name);
 	}
 
-	@Override
-	public ArrayList<Point> getMoveList(Point p) {
-		ArrayList<Point> list = new ArrayList<Point>();
+	public List<Point> getMoveList(Board b) {
+		List<Point> list = new ArrayList<Point>();
+		Point p = b.getSrcMasu().getPoint();
 
 		if (face == true) { // 表の動き
 			if (direction == true) {

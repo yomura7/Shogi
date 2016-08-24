@@ -1,11 +1,12 @@
 package koma;
 
-import game.Board;
-import game.GameMaster;
-import game.Masu;
+import item.Board;
+import item.GameMaster;
+import item.Masu;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Kyosha extends Koma {
 
@@ -18,8 +19,8 @@ public class Kyosha extends Koma {
 	}
 
 	@Override
-	public ArrayList<Point> getMoveList(Point p) {
-		ArrayList<Point> list = new ArrayList<Point>();
+	public List<Point> getMoveList(Point p) {
+		List<Point> list = new ArrayList<Point>();
 
 		if (direction == true) {
 			for (int i = p.y - 1; i >= 1; i--) {

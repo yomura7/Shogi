@@ -2,6 +2,7 @@ package koma;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Koma {
 
@@ -39,10 +40,7 @@ public abstract class Koma {
 	}
 
 	// 配置可能マップの取得
-	public ArrayList<Point> getMoveList(Point p) {
-		ArrayList<Point> list = new ArrayList<Point>();
-		return list;
-	}
+	abstract public List<Point> getMoveList();
 
 	public String getImgName() {
 		return imgName;

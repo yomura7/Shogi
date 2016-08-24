@@ -22,7 +22,8 @@ public class Masu extends JButton{
 	public Masu(int index) {
 		super();
 		this.index = index;
-		this.point = View.index2point(index);
+		this.point.y = (index / 9) + 1;
+		this.point.x = 9 - (index % 9);
 		this.komaState = false;
 		this.placeable = false;
 	}
@@ -38,12 +39,10 @@ public class Masu extends JButton{
 		return komaState;
 	}
 
-	public void setPlaceable(){
-		placeable = true;
+	public void setPlaceable(boolean placeable){
+		this.placeable = placeable;
 	}
-	public void resetPlaceable(){
-		placeable = false;
-	}
+
 	public boolean getPlaceable(){
 		return placeable;
 	}

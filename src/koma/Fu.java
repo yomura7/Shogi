@@ -2,6 +2,7 @@ package koma;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Fu extends Koma {
 
@@ -13,9 +14,8 @@ public class Fu extends Koma {
 		super(direction, name);
 	}
 
-	@Override
-	public ArrayList<Point> getMoveList(Point p) {
-		ArrayList<Point> list = new ArrayList<Point>();
+	public List<Point> getMoveList(Point p) {
+		List<Point> list = new ArrayList<Point>();
 
 		if (face == true) { // 表の動き
 			if (direction == true) {
