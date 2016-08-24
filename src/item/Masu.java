@@ -22,8 +22,9 @@ public class Masu extends JButton{
 	public Masu(int index) {
 		super();
 		this.index = index;
-		this.point.y = (index / 9) + 1;
-		this.point.x = 9 - (index % 9);
+		int y = (index / 9) + 1;
+		int x = 9 - (index % 9);
+		this.point = new Point(x, y);
 		this.komaState = false;
 		this.placeable = false;
 	}

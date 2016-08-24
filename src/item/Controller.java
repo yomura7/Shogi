@@ -1,19 +1,18 @@
 package item;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
-import java.util.Observer;
 
 import koma.Koma;
 
 /* MVCモデル - Controller */
 //マウスイベント時の処理を定義するクラス
 
-public class Controller  implements Observer {
+public class Controller extends Observable implements MouseListener{
 
 	private Board shogiBoard;
-	private View UI;
-	private GameMaster GM;
-	private KomaListener[] listener = new KomaListener[View.SIZE * View.SIZE];
+	private GameMaster GM  = new GameMaster();
 
 	// コンストラクタ
 	public Controller(){
@@ -26,81 +25,122 @@ public class Controller  implements Observer {
 
 		// Listenerの設定
 		for (int i = 0; i < View.SIZE*View.SIZE; i++) {
-			listener[i].addObserver(this);
-			shogiBoard.getMasu(i).addMouseListener(listener[i]);
+			shogiBoard.getMasu(i).addMouseListener(this);
 		}
-
-		// UIの生成
-		this.UI = new View();
-		UI.setMainField(shogiBoard);
-		UI.setVisible(true);
-
-		GM = new GameMaster();
-
 	}
 
 
 	// クリック時のマスを受け取っていろいろ処理
-	public void update(Observable o, Object arg){
-		// 引数を受け取る
-		Masu masu = new Masu();
-		masu = (Masu)arg;
+	public void clicked(Masu masu){
+
 		Koma koma = masu.getKoma();
 
 		// クリック1度目・・・配置可能位置を着色
 		if (GM.getClickFlag() == false) {
 			// 駒が存在 && 選択した駒とターンが一致
-			if (masu.isExistKoma() == true &&
-				GM.getTurn() == koma.isDirection()) {
+			if (masu.isExistKoma() == true && GM.getTurn() == koma.isDirection()) {
 
+				// srcマスをセット
 				shogiBoard.setSrcMasu(masu);
 
 				// クリックした駒の配置可能マップ生成
 				GM.createMap(shogiBoard);
-				GM.invertFlag();
 
-				// 描画
-				UI.coloringMap(shogiBoard);
+				// Viewに変更通知
+				setChanged();
+				notifyObservers(shogiBoard);
+
+				// クリック状態に変更
+				GM.invertFlag();
 			}
+
 		// クリック2度目・・・着色をリセット
 		} else {
+
+			// dstマスをセット
 			shogiBoard.setDstMasu(masu);
 
-			moveKoma(shogiBoard);
+			// 駒を移動
+			moveKoma();
 
 			GM.deleteMap(shogiBoard);
+
+			// dstを着色するために一時的にsrcに設定
+			shogiBoard.setSrcMasu(shogiBoard.getDstMasu());
+
+			// Viewに変更通知
+			setChanged();
+			notifyObservers(shogiBoard);
+
+			// src, dstをリセット
+			shogiBoard.setSrcMasu(null);
+			shogiBoard.setDstMasu(null);
+
+			// クリック状態を解除
 			GM.invertFlag();
 
-			// 描画
-			UI.coloringMap(shogiBoard);
 		}
+
 	}
 
-	public void moveKoma(Board board) {
+	public void moveKoma() {
 
-		Masu src = board.getSrcMasu();
-		Masu dst = board.getDstMasu();
-
+		Masu src = shogiBoard.getSrcMasu();
+		Masu dst = shogiBoard.getDstMasu();
 
 		if (dst.getPlaceable() == true) {
 
 			// 移動先に駒がある場合
 			if (dst.isExistKoma() == true) {
-					System.out.println("駒を取りました");
+				System.out.println("駒を取りました");
+//				shogiBoard.putKomadai(GM.getTurn(), dst.getKoma());
 			}
 
 			// 移動先に配置
-			board.putKoma(dst.getPoint().x, dst.getPoint().y, src.getKoma());
-			System.out.println("Koma = " + src.getKoma());
+			shogiBoard.putKoma(dst.getPoint().x, dst.getPoint().y, src.getKoma());
+
 			// 移動元を削除
 			src.removeKoma();
 
 			GM.checkNaru(shogiBoard);
 			GM.changeTurn();
-			GM.message();
+			GM.message(dst);
 
 		}
 	}
 
 
+
+	public Board getShogiBoard() {
+		return shogiBoard;
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// クリックした座標のマスを取得
+		Masu m = (Masu)e.getSource();
+		clicked(m);
+	}
+
+	// 実装なし
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
 }

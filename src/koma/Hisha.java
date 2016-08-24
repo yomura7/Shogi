@@ -20,8 +20,7 @@ public class Hisha extends Koma {
 		super(direction, name);
 	}
 
-	@Override
-	public List<Point> getMoveList(Point p){
+	public List<Point> getMoveList(Point p) {
 		List<Point> list = new ArrayList<Point>();
 
 		for(int i=1; i<=View.SIZE; i++){

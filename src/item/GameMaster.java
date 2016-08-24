@@ -1,7 +1,7 @@
 package item;
 
 import java.awt.Point;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import koma.Koma;
@@ -41,11 +41,24 @@ public class GameMaster extends Observable{
 	public void createMap(Board shogiBoard) {
 
 		Masu src = shogiBoard.getSrcMasu();
-		Koma koma = shogiBoard.getSrcMasu().getKoma();
-		List<Point> pList = koma.getMoveList(shogiBoard);
+		Koma koma = src.getKoma();
+
+		ArrayList<Point> pList = (ArrayList<Point>)koma.getMoveList(src.getPoint());
 
 		// 移動可能判断
-
+		/*
+		// 駒が移動先にある場合
+		if (masu.isExistKoma() == true) {
+			// 移動先の駒が自駒の場合
+			if (masu.getKoma().isDirection() == GameMaster.getTurn()) {
+				return list;
+			// 移動先の駒が敵駒の場合
+			} else {
+				list.add(new Point(p.x, i));
+				return list;
+			}
+		}
+		 */
 
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).x < 1 || pList.get(i).x > 9)
@@ -61,17 +74,19 @@ public class GameMaster extends Observable{
 
 	public void deleteMap(Board shogiBoard) {
 		for (int i = 0; i < View.SIZE * View.SIZE; i++) {
-			shogiBoard.getDstMasu().setPlaceable(false);
+			shogiBoard.getMasu(i).setPlaceable(false);
 		}
 	}
 
 	/* メッセージ表示 */
-	public void message() {
+	public void message(Masu masu) {
 		if (turn == true) {
-			System.out.println("△先手番です");
+			System.out.print("△");
 		} else {
-			System.out.println("▲後手番です");
+			System.out.print("▲");
 		}
+		System.out.println(""+masu.getPoint().x + masu.getPoint().y + masu.getKoma());
+
 	}
 
 	/* クリックフラグ管理 */

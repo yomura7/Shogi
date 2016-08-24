@@ -15,8 +15,8 @@ public class Fu extends Koma {
 	}
 
 	public List<Point> getMoveList(Point p) {
-		List<Point> list = new ArrayList<Point>();
 
+		List<Point> list = new ArrayList<Point>();
 		if (face == true) { // 表の動き
 			if (direction == true) {
 				list.add(new Point(p.x, p.y - 1));
@@ -24,6 +24,7 @@ public class Fu extends Koma {
 				list.add(new Point(p.x, p.y + 1));
 			}
 			return list;
+
 		} else { // 裏の動き
 			Kin tokin = new Kin(direction);
 			return tokin.getMoveList(p);

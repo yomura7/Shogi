@@ -2,6 +2,7 @@ package koma;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Kin extends Koma {
@@ -15,9 +16,9 @@ public class Kin extends Koma {
 		super(direction, name);
 	}
 
-	@Override
-	public ArrayList<Point> getMoveList(Point p){
-		ArrayList<Point> list = new ArrayList<Point>();
+	public List<Point> getMoveList(Point p) {
+		List<Point> list = new ArrayList<Point>();
+
 		if (direction == true) {
 			list.add(new Point(p.x, p.y - 1));
 			list.add(new Point(p.x - 1, p.y - 1));

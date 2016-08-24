@@ -8,6 +8,7 @@ public abstract class Koma {
 
 	protected String[] nameList;
 	protected String imgName;
+	protected String komaName;
 	protected boolean face;
 	protected boolean direction;
 	protected ArrayList<Point> list = new ArrayList<Point>();
@@ -40,7 +41,7 @@ public abstract class Koma {
 	}
 
 	// 配置可能マップの取得
-	abstract public List<Point> getMoveList();
+	abstract public List<Point> getMoveList(Point p);
 
 	public String getImgName() {
 		return imgName;
