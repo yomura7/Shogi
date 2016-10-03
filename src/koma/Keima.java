@@ -6,12 +6,14 @@ import java.util.List;
 
 public class Keima extends Koma {
 
-	private static String[] name = { "./koma_img/sgs06.png",
+	private static String[] imgName = { "./koma_img/sgs06.png",
 			"./koma_img/sgs36.png", "./koma_img/sgs16.png",
 			"./koma_img/sgs46.png" };
-
+	private static String[] komaName = {
+		"桂", "成桂"
+	};
 	public Keima(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {

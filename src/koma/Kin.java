@@ -7,13 +7,15 @@ import java.util.List;
 
 public class Kin extends Koma {
 
-	private static String[] name ={
+	private static String[] imgName ={
 		"./koma_img/sgs04.png",
 		"./koma_img/sgs34.png",
 	};
-
+	private static String[] komaName = {
+		"金", "金"
+	};
 	public Kin(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {

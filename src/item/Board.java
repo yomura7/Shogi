@@ -1,10 +1,7 @@
 package item;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.Observable;
-
-import javax.swing.ImageIcon;
 
 import koma.Koma;
 
@@ -16,35 +13,35 @@ import koma.Koma;
 public class Board  extends Observable{
 
 	// 現在の盤面の状態を保持
-	private Masu[] masu = new Masu[View.SIZE * View.SIZE];
-	private Komadai komadai1;
-	private Komadai komadai2;
-	private Masu srcMasu = new Masu();
-	private Masu dstMasu = new Masu();
+	static public final int SIZE = 9;
+
+	private Masu[] masu = new Masu[SIZE * SIZE];
+	private Komadai[] komadai = new Komadai[2];
+	private Masu srcMasu;
+	private int komadaiNum;
+	private Masu latestMasu;
 
 	public Board(){
 		for (int i = 0; i < masu.length; i++) {
 			masu[i] = new Masu(i);
-			masu[i].setBackground(Color.DARK_GRAY);
 		}
-		this.komadai1 = new Komadai();
-		this.komadai2 = new Komadai();
+		komadai[0] = new Komadai(0);
+		komadai[1] = new Komadai(1);
 
+		komadaiNum = -1;
 	}
 
 	/* 駒の配置 */
 	// [例] ９一歩(左上)・・・putKoma(9, 1, Fu)
 	public void putKoma(int x, int y, Koma koma) {
-		ImageIcon icon = new ImageIcon(koma.getImgName());
-		getMasu(new Point(x, y)).setIcon(icon);
 		getMasu(new Point(x, y)).setKoma(koma);
 	}
-
-	public void changed(){
-		setChanged();
-		notifyObservers(masu);
-		System.out.println("Board changed");
+	// 駒の削除
+	public void removeKoma(int x, int y) {
+		int index = ((9 - x) + ((y - 1) * 9));
+		masu[index].setKoma(null);
 	}
+
 
 	/* Getter */
 	public Masu getMasu(int index) {
@@ -57,18 +54,16 @@ public class Board  extends Observable{
 		return masu[index];
 	}
 
-	public Komadai getKomadai1() {
-		return komadai1;
-	}
-	public void setKomadai1(Komadai komadai1) {
-		this.komadai1 = komadai1;
+	public void putKomadai(boolean turn, Koma koma) {
+		if (turn == true) {
+			komadai[0].addKoma(koma);
+		} else {
+			komadai[1].addKoma(koma);
+		}
 	}
 
-	public Komadai getKomadai2() {
-		return komadai2;
-	}
-	public void setKomadai2(Komadai komadai2) {
-		this.komadai2 = komadai2;
+	public Komadai getKomadai(int num) {
+		return komadai[num];
 	}
 
 	public Masu getSrcMasu() {
@@ -78,11 +73,22 @@ public class Board  extends Observable{
 		this.srcMasu = srcKoma;
 	}
 
-	public Masu getDstMasu() {
-		return dstMasu;
+
+
+	public int getKomadaiNum() {
+		return komadaiNum;
 	}
-	public void setDstMasu(Masu dstKoma) {
-		this.dstMasu = dstKoma;
+
+	public void setKomadaiNum(int komadaiNum) {
+		this.komadaiNum = komadaiNum;
+	}
+
+	public Masu getLatestMasu() {
+		return latestMasu;
+	}
+
+	public void setLatestMasu(Masu latestMasu) {
+		this.latestMasu = latestMasu;
 	}
 
 

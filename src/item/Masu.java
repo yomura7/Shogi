@@ -12,7 +12,6 @@ public class Masu extends JButton{
 	private int index;
 	private Point point;
 	private Koma koma;
-	private boolean komaState;
 	private boolean placeable;
 
 	public Masu() {
@@ -25,19 +24,16 @@ public class Masu extends JButton{
 		int y = (index / 9) + 1;
 		int x = 9 - (index % 9);
 		this.point = new Point(x, y);
-		this.komaState = false;
 		this.placeable = false;
 	}
 
-	// 駒の削除
-	public void removeKoma() {
-		this.setIcon(null);
-		this.koma = null;
-		this.komaState = false;
-	}
-
 	public boolean isExistKoma(){
-		return komaState;
+		// 駒がある場合
+		if (koma != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void setPlaceable(boolean placeable){
@@ -53,7 +49,6 @@ public class Masu extends JButton{
 		this.setBackground(c);
 	}
 	public void setKoma(Koma koma){
-		this.komaState = true;
 		this.koma = koma;
 	}
 	public int getIndex(){

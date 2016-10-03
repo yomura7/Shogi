@@ -6,11 +6,14 @@ import java.util.List;
 
 public class Gyoku extends Koma {
 
-	private static String[] name = { "./koma_img/sgs01.png",
+	private static String[] imgName = { "./koma_img/sgs01.png",
 			"./koma_img/sgs31.png" };
+	private static String[] komaName = {
+		"玉", "玉"
+	};
 
 	public Gyoku(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {

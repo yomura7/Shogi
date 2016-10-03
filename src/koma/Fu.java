@@ -6,12 +6,15 @@ import java.util.List;
 
 public class Fu extends Koma {
 
-	private static String[] name = { "./koma_img/sgs08.png",
-			"./koma_img/sgs38.png", "./koma_img/sgs18.png",
-			"./koma_img/sgs48.png" };
+	private static String[] imgName = { "./koma_img/sgs08.png",
+		"./koma_img/sgs38.png", "./koma_img/sgs18.png",
+		"./koma_img/sgs48.png" };
+	private static String[] komaName = {
+		"歩", "と"
+	};
 
 	public Fu(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {

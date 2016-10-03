@@ -6,12 +6,15 @@ import java.util.List;
 
 public class Gin extends Koma {
 
-	private static String[] name = { "./koma_img/sgs05.png",
+	private static String[] imgName = { "./koma_img/sgs05.png",
 			"./koma_img/sgs35.png", "./koma_img/sgs15.png",
 			"./koma_img/sgs45.png" };
+	private static String[] komaName = {
+		"銀", "成銀"
+	};
 
 	public Gin(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {

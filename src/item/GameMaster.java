@@ -13,67 +13,95 @@ public class GameMaster extends Observable{
 
 	private boolean clickFlag = false;
 	private boolean turn = true;
-//	private Masu prevMasu;
 
+	public void checkNaru(Board b, Masu dst){
 
-	public void checkNifu(Board b){
-		// 未実装
-	}
-
-	public void checkNaru(Board b){
-		Masu m = b.getDstMasu();
-
-		if (m.getKoma().isDirection() == true) {
-			if (m.getPoint().y <= 3) {
-				m.getKoma().naru();
-				b.putKoma(m.getPoint().x, m.getPoint().y, m.getKoma());
+		if (turn == true) {
+			if (dst.getPoint().y <= 3) {
+//				System.out.println("y = "+dst.getPoint().y);
+				Koma k = b.getMasu(dst.getPoint()).getKoma();
+				k.naru();
+				b.putKoma(dst.getPoint().x, dst.getPoint().y, k);
 			}
 		} else {
-			if (m.getPoint().y >= 7) {
-				m.getKoma().naru();
-				b.putKoma(m.getPoint().x, m.getPoint().y, m.getKoma());
+			if (dst.getPoint().y >= 7) {
+//				System.out.println("y = "+dst.getPoint().y);
+				Koma k = b.getMasu(dst.getPoint()).getKoma();
+				k.naru();
+				b.putKoma(dst.getPoint().x, dst.getPoint().y, k);
 			}
 		}
 	}
 
 
 	// 指定した駒の移動可能位置をtrueに変更
-	public void createMap(Board shogiBoard) {
+	public void createMap(Board shogiBoard, int process) {
 
-		Masu src = shogiBoard.getSrcMasu();
-		Koma koma = src.getKoma();
+		if (process == 0) {
+			Masu src = shogiBoard.getSrcMasu();
+			Koma koma = src.getKoma();
 
-		ArrayList<Point> pList = (ArrayList<Point>)koma.getMoveList(src.getPoint());
+			ArrayList<Point> pList = (ArrayList<Point>)koma.getMoveList(src.getPoint());
 
-		// 移動可能判断
-		/*
-		// 駒が移動先にある場合
-		if (masu.isExistKoma() == true) {
-			// 移動先の駒が自駒の場合
-			if (masu.getKoma().isDirection() == GameMaster.getTurn()) {
-				return list;
-			// 移動先の駒が敵駒の場合
-			} else {
-				list.add(new Point(p.x, i));
-				return list;
+			// 移動可能判断
+			for (int i = 0; i < pList.size(); i++) {
+				int x = pList.get(i).x;
+				int y = pList.get(i).y;
+				Masu masu = shogiBoard.getMasu(pList.get(i));
+
+				// 移動先が盤外の場合
+				if (x < 1 || x > 9)
+					continue;
+				if (y < 1 || y > 9)
+					continue;
+
+				// 自駒が移動先にある場合
+				if (masu.isExistKoma() == true && masu.getKoma().isDirection() == turn)
+					continue;
+
+				// trueをセット
+				masu.setPlaceable(true);
 			}
-		}
-		 */
+		} else if (process == 1) {
 
-		for (int i = 0; i < pList.size(); i++) {
-			if (pList.get(i).x < 1 || pList.get(i).x > 9)
-				continue;
-			if (pList.get(i).y < 1 || pList.get(i).y > 9)
-				continue;
+			KomaGenerator kg = new KomaGenerator();
+			Koma koma = kg.genKoma(shogiBoard.getKomadaiNum());
 
-			Masu masu = shogiBoard.getMasu(pList.get(i));
-			// trueをセット
-			masu.setPlaceable(true);
+			// 移動可能判断
+			for (int i = 0; i < Board.SIZE*Board.SIZE; i++) {
+				Masu masu = shogiBoard.getMasu(i);
+
+				// 自駒が移動先にある場合
+				if (masu.isExistKoma() == true) {
+					continue;
+				}
+				// 二歩のチェック
+				if (koma.getKomaName() == "歩") {
+/*
+					boolean nifuFlag = false;
+					Point p = masu.getPoint();
+					for (int y = 1; y <= Board.SIZE; i++) {
+						if (shogiBoard.getMasu(new Point(p.x, y)).getKoma().getKomaName() == "歩") {
+							nifuFlag = true;
+						}
+					}
+					if (nifuFlag == true){
+						continue;
+					}
+*/
+				}
+
+				// trueをセット
+				masu.setPlaceable(true);
+			}
+
+
 		}
+
 	}
 
 	public void deleteMap(Board shogiBoard) {
-		for (int i = 0; i < View.SIZE * View.SIZE; i++) {
+		for (int i = 0; i < Board.SIZE * Board.SIZE; i++) {
 			shogiBoard.getMasu(i).setPlaceable(false);
 		}
 	}
@@ -85,7 +113,7 @@ public class GameMaster extends Observable{
 		} else {
 			System.out.print("▲");
 		}
-		System.out.println(""+masu.getPoint().x + masu.getPoint().y + masu.getKoma());
+		System.out.println(""+masu.getPoint().x + masu.getPoint().y + masu.getKoma().getKomaName());
 
 	}
 
@@ -93,7 +121,6 @@ public class GameMaster extends Observable{
 	public boolean getClickFlag() {
 		return clickFlag;
 	}
-
 	public void invertFlag() {
 		clickFlag = !clickFlag;
 	}

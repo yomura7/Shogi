@@ -3,7 +3,6 @@ package item;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import koma.Koma;
@@ -11,29 +10,42 @@ import koma.Koma;
 // 駒台（取った駒を置くための台）
 public class Komadai {
 
-	public static JButton[] komadai = new JButton[2*View.SIZE];
+	public static final int KOMADAI_SIZE = 7;
+
+	private Masu[] mochigoma = new Masu[2 * KOMADAI_SIZE];
+	// "歩", "香", "桂", "銀", "金", "角", "飛"
+
+	private int[] komaNum = new int[KOMADAI_SIZE];
 	private JPanel panel = new JPanel();
 
-	public Komadai() {
+	public Komadai(int side) {
 		super();
 		// ラベルの初期化
-		for (int i = 0; i < komadai.length; i++) {
-			komadai[i] = new JButton();
-			komadai[i].setName(String.valueOf(i));
+		for (int i = 0; i < mochigoma.length; i++) {
+			mochigoma[i] = new Masu();
+			mochigoma[i].setName(String.valueOf(i+side*10));
 		}
 
 		// パネルの配置
 		panel.setBackground(Color.BLACK);
-		GridLayout layout = new GridLayout(2, View.SIZE);
+		GridLayout layout = new GridLayout(2, KOMADAI_SIZE);
 		layout.setHgap(5);
 		layout.setVgap(5);
 		panel.setLayout(layout);
 
-		for (int i = 0; i < 18; i++) {
-			komadai[i].setBackground(Color.LIGHT_GRAY);
-			komadai[i].setOpaque(true);
-			komadai[i].setText("　");
-			panel.add(komadai[i]);
+		for (int i = 0; i < mochigoma.length; i++) {
+			mochigoma[i].setBackground(Color.LIGHT_GRAY);
+			mochigoma[i].setOpaque(true);
+			mochigoma[i].setText("　");
+			panel.add(mochigoma[i]);
+		}
+
+
+		String nameArr[] = {"歩", "香", "桂", "銀", "金", "角", "飛"};
+		int i=0;
+		for (String name: nameArr){
+			mochigoma[i].setText(name);
+			i++;
 		}
 	}
 
@@ -41,7 +53,28 @@ public class Komadai {
 		return panel;
 	}
 
-	public void setKoma(Koma koma){
-
+	public void addKoma(Koma koma){
+//		koma.reset();
+		int i=0;
+		String nameArr[] = {"歩", "香", "桂", "銀", "金", "角", "飛"};
+		for (String name: nameArr){
+			if (koma.getKomaName() == name) {
+				komaNum[i]++;
+			}
+			i++;
+		}
 	}
+
+	public void removeMochigoma(int index){
+		komaNum[index]--;
+	}
+
+	public Masu getMochigoma(int index) {
+		return mochigoma[index];
+	}
+
+	public int getKomaNum(int index) {
+		return komaNum[index];
+	}
+
 }

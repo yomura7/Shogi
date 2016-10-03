@@ -1,6 +1,6 @@
 package koma;
 
-import item.View;
+import item.Board;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,12 +8,14 @@ import java.util.List;
 
 public class Kyosha extends Koma {
 
-	private static String[] name = { "./koma_img/sgs07.png",
+	private static String[] imgName = { "./koma_img/sgs07.png",
 			"./koma_img/sgs37.png", "./koma_img/sgs17.png",
 			"./koma_img/sgs47.png" };
-
+	private static String[] komaName = {
+		"香", "成香"
+	};
 	public Kyosha(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {
@@ -24,7 +26,7 @@ public class Kyosha extends Koma {
 				list.add(new Point(p.x, i));
 			}
 		} else {
-			for (int i = p.y + 1; i <= View.SIZE; i++) {
+			for (int i = p.y + 1; i <= Board.SIZE; i++) {
 				list.add(new Point(p.x, i));
 			}
 		}

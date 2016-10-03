@@ -7,15 +7,18 @@ import java.util.List;
 
 public class Kaku extends Koma {
 
-	private static String[] name ={
+	private static String[] imgName ={
 		"./koma_img/sgs03.png",
 		"./koma_img/sgs33.png",
 		"./koma_img/sgs13.png",
 		"./koma_img/sgs43.png"
 	};
+	private static String[] komaName = {
+		"角", "馬"
+	};
 
 	public Kaku(boolean direction) {
-		super(direction, name);
+		super(direction, imgName, komaName);
 	}
 
 	public List<Point> getMoveList(Point p) {
