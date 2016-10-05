@@ -8,8 +8,6 @@ import koma.Koma;
 /* MVCモデル - Model */
 // 将棋盤、駒台の状態を保持するためのクラス
 
-// 名前はGameStateとかでいいかも
-
 public class Board  extends Observable{
 
 	// 現在の盤面の状態を保持
@@ -27,7 +25,6 @@ public class Board  extends Observable{
 		}
 		komadai[0] = new Komadai(0);
 		komadai[1] = new Komadai(1);
-
 		komadaiNum = -1;
 	}
 

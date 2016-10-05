@@ -54,50 +54,91 @@ public class GameMaster extends Observable{
 					continue;
 				if (y < 1 || y > 9)
 					continue;
-
 				// 自駒が移動先にある場合
 				if (masu.isExistKoma() == true && masu.getKoma().isDirection() == turn)
 					continue;
-
 				// trueをセット
 				masu.setPlaceable(true);
 			}
 		} else if (process == 1) {
 
 			KomaGenerator kg = new KomaGenerator();
-			Koma koma = kg.genKoma(shogiBoard.getKomadaiNum());
+			Koma myKoma = kg.genKoma(shogiBoard.getKomadaiNum());
 
-			// 移動可能判断
-			for (int i = 0; i < Board.SIZE*Board.SIZE; i++) {
-				Masu masu = shogiBoard.getMasu(i);
-
-				// 自駒が移動先にある場合
-				if (masu.isExistKoma() == true) {
-					continue;
-				}
-				// 二歩のチェック
-				if (koma.getKomaName() == "歩") {
-/*
-					boolean nifuFlag = false;
-					Point p = masu.getPoint();
-					for (int y = 1; y <= Board.SIZE; i++) {
-						if (shogiBoard.getMasu(new Point(p.x, y)).getKoma().getKomaName() == "歩") {
-							nifuFlag = true;
-						}
-					}
-					if (nifuFlag == true){
-						continue;
-					}
-*/
-				}
-
-				// trueをセット
-				masu.setPlaceable(true);
+			// 歩を打つ場合は二歩のチェックを行う
+			boolean nifuFlag[] = new boolean[Board.SIZE];
+			if (myKoma.getKomaName() == "歩") {
+				nifuFlag = checkNifu(shogiBoard);
 			}
 
+			// 移動可能マスに移動可能状態を付加
+			for (int x = 1; x <= Board.SIZE; x++) {
+				for (int y = 1; y <= Board.SIZE; y++) {
+					Masu masu = shogiBoard.getMasu(new Point(x, y));
 
+					if (masu.isExistKoma() == true) {
+						continue;
+					}
+					if (nifuFlag[x-1] == true) {
+						continue;
+					}
+					if (checkCanMove(myKoma, y) == false) {
+						continue;
+					}
+
+					// trueをセット
+					masu.setPlaceable(true);
+				}
+			}
 		}
+	}
 
+	private boolean[] checkNifu(Board shogiBoard){
+		boolean nifuFlag[] = new boolean[Board.SIZE];
+		for (int x = 1; x <= Board.SIZE; x++) {
+			for (int y = 1; y <= Board.SIZE; y++) {
+				Masu masu = shogiBoard.getMasu(new Point(x, y));
+				// 駒がある場合
+				if (masu.isExistKoma() == true) {
+					Koma k = shogiBoard.getMasu(new Point(x, y)).getKoma();
+					// 自分の歩がある場合
+					if (k.getKomaName() == "歩" && k.isDirection() == turn) {
+						nifuFlag[x-1] = true;
+					}
+				}
+			}
+		}
+		return nifuFlag;
+	}
+
+	// 配置先の駒が移動できる場合はtrue, 移動できない禁じ手の場合はfalse
+	private boolean checkCanMove(Koma myKoma, int y){
+		if (myKoma.getKomaName() == "歩") {
+			if (turn == true && y == 1) {
+				return false;
+			} else if (turn == false && y == 9) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (myKoma.getKomaName() == "香") {
+			if (turn == true && y == 1) {
+				return false;
+			} else if (turn == false && y == 9) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (myKoma.getKomaName() == "桂") {
+			if (turn == true && y <= 2) {
+				return false;
+			} else if (turn == false && y >= 8) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return true;
 	}
 
 	public void deleteMap(Board shogiBoard) {

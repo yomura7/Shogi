@@ -90,13 +90,7 @@ public class View extends JFrame implements Observer{
 			num = nowBoard.getKomadai(1).getKomaNum(i);
 			nowBoard.getKomadai(1).getMochigoma(Komadai.KOMADAI_SIZE+i).setText(String.valueOf(num));
 		}
-
-
-
 	}
-
-
-
 
 	private void initView() {
 		// ウィンドウの設定
