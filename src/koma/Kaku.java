@@ -39,6 +39,13 @@ public class Kaku extends Koma {
 			}
 		}
 
+		if (face == false) {
+			list.add(new Point(p.x, p.y - 1));
+			list.add(new Point(p.x + 1, p.y));
+			list.add(new Point(p.x - 1, p.y));
+			list.add(new Point(p.x, p.y + 1));
+		}
+
 		return list;
 	}
 

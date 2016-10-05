@@ -21,14 +21,19 @@ public class Kyosha extends Koma {
 	public List<Point> getMoveList(Point p) {
 		List<Point> list = new ArrayList<Point>();
 
-		if (direction == true) {
-			for (int i = p.y - 1; i >= 1; i--) {
-				list.add(new Point(p.x, i));
+		if (face == true) { // 表の動き
+			if (direction == true) {
+				for (int i = p.y - 1; i >= 1; i--) {
+					list.add(new Point(p.x, i));
+				}
+			} else {
+				for (int i = p.y + 1; i <= Board.SIZE; i++) {
+					list.add(new Point(p.x, i));
+				}
 			}
 		} else {
-			for (int i = p.y + 1; i <= Board.SIZE; i++) {
-				list.add(new Point(p.x, i));
-			}
+			Kin narikyo = new Kin(direction);
+			return narikyo.getMoveList(p);
 		}
 
 		return list;

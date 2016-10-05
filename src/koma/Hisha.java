@@ -31,6 +31,13 @@ public class Hisha extends Koma {
 			list.add(new Point(i, p.y));
 		}
 
+		if (face == false) {
+			list.add(new Point(p.x - 1, p.y - 1));
+			list.add(new Point(p.x + 1, p.y - 1));
+			list.add(new Point(p.x - 1, p.y + 1));
+			list.add(new Point(p.x + 1, p.y + 1));
+		}
+
 		return list;
 	}
 }
