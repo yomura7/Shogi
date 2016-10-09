@@ -82,20 +82,27 @@ public class View extends JFrame implements Observer{
 		}
 
 		// 駒台更新
+		String nameArr[] = {"歩", "香", "桂", "銀", "金", "角", "飛"};
 		for (int i = 0; i < Komadai.KOMADAI_SIZE; i++) {
-			int num;
-			num= nowBoard.getKomadai(0).getKomaNum(i);
-			nowBoard.getKomadai(0).getMochigoma(Komadai.KOMADAI_SIZE+i).setText(String.valueOf(num));
-
-			num = nowBoard.getKomadai(1).getKomaNum(i);
-			nowBoard.getKomadai(1).getMochigoma(Komadai.KOMADAI_SIZE+i).setText(String.valueOf(num));
+			int[] num = new int[2];
+			for (int j=0; j<2; j++) {
+				num[j]= nowBoard.getKomadai(j).getKomaNum(i);
+				if (num[j] >= 1) {
+					nowBoard.getKomadai(j).getMochigoma(Komadai.KOMADAI_SIZE+i).setText(String.valueOf(num[j]));
+					nowBoard.getKomadai(j).getMochigoma(i).setText(nameArr[i]);
+				} else {
+					nowBoard.getKomadai(j).getMochigoma(Komadai.KOMADAI_SIZE+i).setText(null);
+					nowBoard.getKomadai(j).getMochigoma(i).setText(null);
+				}
+			}
 		}
 	}
 
 	private void initView() {
 		// ウィンドウの設定
 		this.setTitle("Shogi");
-		this.setBounds(50, 50, 500, 650);
+		this.setSize(500, 650);
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// メニューバー
@@ -124,26 +131,51 @@ public class View extends JFrame implements Observer{
 	public void setMainField(Board shogiBoard) {
 
 		// メインパネル
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-
+		JPanel panelA = new JPanel();
+		panelA.setBackground(Color.BLACK);
 		// レイアウト設定
-		GridLayout layout = new GridLayout(Board.SIZE, Board.SIZE);
-		layout.setHgap(5);
-		layout.setVgap(5);
-		panel.setLayout(layout);
-
+		GridLayout layoutA = new GridLayout(Board.SIZE, Board.SIZE);
+		layoutA.setHgap(5);
+		layoutA.setVgap(5);
+		panelA.setLayout(layoutA);
 		// マスのセット
 		for (int i = 0; i < Board.SIZE * Board.SIZE; i++) {
 			Masu m = shogiBoard.getMasu(i);
-			panel.add(m);
+			panelA.add(m);
 		}
-		getContentPane().add(panel, BorderLayout.CENTER);
-		getContentPane().add(shogiBoard.getKomadai(0).getPanel(), BorderLayout.SOUTH);
-		getContentPane().add(shogiBoard.getKomadai(1).getPanel(), BorderLayout.NORTH);
+		this.add(panelA, BorderLayout.CENTER);
+		getContentPane().add(shogiBoard.getKomadai(0).getPanel(), BorderLayout.NORTH);
+		getContentPane().add(shogiBoard.getKomadai(1).getPanel(), BorderLayout.SOUTH);
+
+/*
+		// パネルの配置
+		GridLayout layoutB = new GridLayout(2, Komadai.KOMADAI_SIZE);
+		layoutB.setHgap(5);
+		layoutB.setVgap(5);
+		JPanel[] panelB = new JPanel[2];
+		for (int j=0; j>2; j++) {
+//			panelB[j].setBackground(Color.BLACK);
+			panelB[j].setLayout(layoutB);
+			for (int i = 0; i < 2*Komadai.KOMADAI_SIZE; i++) {
+				shogiBoard.getKomadai(j).getMochigoma(i).setBackground(Color.LIGHT_GRAY);
+				shogiBoard.getKomadai(j).getMochigoma(i).setOpaque(true);
+				shogiBoard.getKomadai(j).getMochigoma(i).setText("＠");
+				shogiBoard.getKomadai(j).getMochigoma(i).setFont(new Font("メイリオ", Font.BOLD, 16));
+				panelB[j].add(shogiBoard.getKomadai(j).getMochigoma(i));
+			}
+			if (j==0){
+//				panelA.add(panelB[j], BorderLayout.NORTH);
+				this.add(panelB[j], BorderLayout.NORTH);
+//				getContentPane().add(panelB[j], BorderLayout.CENTER);
+			} else {
+				this.add(panelB[j], BorderLayout.SOUTH);
+//				panelA.add(panelB[j], BorderLayout.SOUTH);
+//				getContentPane().add(panelB[j], BorderLayout.SOUTH);
+			}
+		}
+//		contentPane.add(panelB[0]);
+//		contentPane.add(panelB[1]);
+*/
 
 	}
-
-
-
 }

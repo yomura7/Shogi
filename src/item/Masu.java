@@ -55,7 +55,11 @@ public class Masu extends JButton{
 		return index;
 	}
 	public Koma getKoma(){
-		return koma;
+		if (koma != null) {
+			return koma;
+		} else {
+			return null;
+		}
 	}
 	public Point getPoint(){
 		return point;

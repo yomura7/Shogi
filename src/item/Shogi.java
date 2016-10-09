@@ -1,7 +1,5 @@
 package item;
 
-import item.Controller;
-import item.View;
 
 public class Shogi {
 

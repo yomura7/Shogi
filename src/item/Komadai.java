@@ -1,6 +1,7 @@
 package item;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -37,16 +38,11 @@ public class Komadai {
 			mochigoma[i].setBackground(Color.LIGHT_GRAY);
 			mochigoma[i].setOpaque(true);
 			mochigoma[i].setText("　");
+			mochigoma[i].setFont(new Font("メイリオ", Font.BOLD, 16));
 			panel.add(mochigoma[i]);
 		}
 
 
-		String nameArr[] = {"歩", "香", "桂", "銀", "金", "角", "飛"};
-		int i=0;
-		for (String name: nameArr){
-			mochigoma[i].setText(name);
-			i++;
-		}
 	}
 
 	public JPanel getPanel(){
