@@ -1,11 +1,11 @@
-package item;
+package com.example.item;
 
 import java.awt.Color;
 import java.awt.Point;
 
 import javax.swing.JButton;
 
-import koma.Koma;
+import com.exmaple.koma.Koma;
 
 public class Masu extends JButton{
 

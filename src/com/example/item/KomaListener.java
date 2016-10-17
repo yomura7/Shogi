@@ -1,4 +1,4 @@
-package item;
+package com.example.item;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

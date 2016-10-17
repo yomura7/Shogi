@@ -1,4 +1,4 @@
-package item;
+package com.example.item;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,7 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import koma.Koma;
+import com.exmaple.koma.Koma;
 
 // 駒台（取った駒を置くための台）
 public class Komadai {

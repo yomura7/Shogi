@@ -1,4 +1,4 @@
-package item;
+package com.example.item;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,13 +1,13 @@
-package item;
+package com.example.item;
 
-import koma.Fu;
-import koma.Gin;
-import koma.Hisha;
-import koma.Kaku;
-import koma.Keima;
-import koma.Kin;
-import koma.Koma;
-import koma.Kyosha;
+import com.exmaple.koma.Fu;
+import com.exmaple.koma.Gin;
+import com.exmaple.koma.Hisha;
+import com.exmaple.koma.Kaku;
+import com.exmaple.koma.Keima;
+import com.exmaple.koma.Kin;
+import com.exmaple.koma.Koma;
+import com.exmaple.koma.Kyosha;
 
 public class KomaGenerator {
 

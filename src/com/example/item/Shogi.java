@@ -1,4 +1,4 @@
-package item;
+package com.example.item;
 
 
 public class Shogi {

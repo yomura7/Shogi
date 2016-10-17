@@ -1,4 +1,4 @@
-package koma;
+package com.exmaple.koma;
 
 import java.awt.Point;
 import java.util.ArrayList;

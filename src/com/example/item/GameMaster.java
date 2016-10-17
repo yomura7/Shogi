@@ -1,4 +1,4 @@
-package item;
+package com.example.item;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import koma.Koma;
+import com.exmaple.koma.Koma;
 
 // Controllerの補助
 // このクラスにはルールなどを入れておく

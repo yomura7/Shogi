@@ -1,11 +1,11 @@
-package item;
+package com.example.item;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 
-import koma.Koma;
+import com.exmaple.koma.Koma;
 
 /* MVCモデル - Controller */
 //マウスイベント時の処理を定義するクラス

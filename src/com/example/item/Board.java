@@ -1,9 +1,9 @@
-package item;
+package com.example.item;
 
 import java.awt.Point;
 import java.util.Observable;
 
-import koma.Koma;
+import com.exmaple.koma.Koma;
 
 /* MVCモデル - Model */
 // 将棋盤、駒台の状態を保持するためのクラス

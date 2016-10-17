@@ -1,10 +1,10 @@
-package koma;
-
-import item.Board;
+package com.exmaple.koma;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.item.Board;
 
 public class Kyosha extends Koma {
 
